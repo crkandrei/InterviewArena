@@ -1,4 +1,4 @@
-#IneterviewArena 🚀
+
 An innovative platform that leverages the power of OpenAI to generate domain-specific tests for users, providing instant feedback on their answers.
 
 App Banner <!-- You can replace this with an actual image link -->
