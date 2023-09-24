@@ -15,6 +15,11 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'blue-button': '#1789FC', // custom blue color
+                'yellow-button': '#FDB833', // custom yellow color
+                'color-1' : '#FCCAA2'
+            },
         },
     },
 

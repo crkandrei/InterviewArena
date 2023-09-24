@@ -16,6 +16,8 @@ services:
             - ./:/var/www
         networks:
             - laravel
+        ports:
+            - "3000:3000"
 
     nginx:
         image: nginx:stable-alpine
