@@ -27,7 +27,8 @@
                                     <input id="experienceLevel" v-model="profileForm.experienceLevel" placeholder="e.g., 3" required class="w-full p-2 border rounded-md" />
                                 </div>
 
-                                <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Submit</button>
+                                <button v-if="!loading" type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Submit</button>
+                                <Loader v-else />
                             </form>
                         </div>
 
@@ -39,7 +40,8 @@
                                     <textarea id="jobDescription" v-model="jobDescriptionForm.description" placeholder="Paste the descrpition of the job you will get interviwed" required class="w-full p-2 border rounded-md"></textarea>
                                 </div>
 
-                                <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Submit</button>
+                                <button v-if="!loading" type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Submit</button>
+                                <Loader v-else />
                             </form>
                         </div>
                     </div>
@@ -50,6 +52,7 @@
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Loader from '@/Components/Loader.vue';
 import { Head } from '@inertiajs/vue3';
 import { defineProps, ref } from 'vue';
 
@@ -69,12 +72,23 @@ const jobDescriptionForm = ref({
     description: ''
 });
 
-const handleProfileFormSubmit = () => {
-    axios.post('/form-submit', {
-        type: 'profile',
-        data: profileForm.value
-    });
+const loading = ref(false);
+const handleProfileFormSubmit = async () => {
+    loading.value = true;
+    try {
+        const response = await axios.post('/form-submit', {
+            type: 'profile',
+            data: profileForm.value
+        });
+        localStorage.setItem('questions', JSON.stringify(response.data.questions));
+        window.location.href = '/questioner';
+    } catch (err) {
+        error.value = err.response.data.message;
+    } finally {
+        loading.value = false;
+    }
 };
+
 
 const handleJobDescriptionFormSubmit = () => {
     axios.post('/form-submit', {

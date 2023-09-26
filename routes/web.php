@@ -37,6 +37,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Form', ['type' => $type]);
     });
 
+    Route::get('/questioner', function () {
+        return Inertia::render('Questioner');
+    });
+
     // Form Submission Route
     Route::post('/form-submit', [FormController::class, 'submit']);
 

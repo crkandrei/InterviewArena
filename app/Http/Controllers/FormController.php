@@ -56,14 +56,12 @@ class FormController extends Controller
 
         // Extracting content from the response
         $content = $body['choices'][0]['message']['content'];
-        dd($content);
-        // Splitting the content into individual questions
-        $questions = preg_split('/\?\s+/', $content, -1, PREG_SPLIT_NO_EMPTY);
+
+        // Splitting the content into individual questions based on newline characters
+        $questions = preg_split('/\n+/', $content, -1, PREG_SPLIT_NO_EMPTY);
 
         // Trimming each question
         $questions = array_map('trim', $questions);
-
-
 
         // Returning the questions as a JSON response
         return response()->json(['questions' => $questions]);
