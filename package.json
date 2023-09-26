@@ -19,7 +19,7 @@
         "vue": "^3.2.41"
     },
     "name": "www",
-    "description": "InterviewArena \ud83d\ude80 InterviewArena Logo",
+    "description": "InterviewArena 🚀 InterviewArena Logo",
     "version": "1.0.0",
     "main": "tailwind.config.js",
     "directories": {
@@ -35,5 +35,8 @@
     "bugs": {
         "url": "https://github.com/crkandrei/InterviewArena/issues"
     },
-    "homepage": "https://github.com/crkandrei/InterviewArena#readme"
+    "homepage": "https://github.com/crkandrei/InterviewArena#readme",
+    "dependencies": {
+        "@inertiajs/inertia-vue3": "^0.6.0"
+    }
 }

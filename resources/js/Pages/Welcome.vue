@@ -17,6 +17,9 @@ defineProps({
         required: true,
     },
 });
+
+const profileQuestionsUrl = '/form/profile';
+const jobDescriptionQuestionsUrl = '/form/job-description';
 </script>
 
 <template>
@@ -38,10 +41,10 @@ defineProps({
         <!-- Two buttons with specified colors and text -->
         <div class="flex justify-center">
             <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-4 md:flex-row">
-                <a href="/profile-questions" class="bg-blue-500 text-white px-6 py-3 rounded-lg inline-block w-full md:w-auto text-center shadow-lg transform transition hover:bg-blue-600 hover:shadow-xl hover:-translate-y-1 hover:scale-105">
+                <a :href="profileQuestionsUrl" class="bg-blue-500 text-white px-6 py-3 rounded-lg inline-block w-full md:w-auto text-center shadow-lg transform transition hover:bg-blue-600 hover:shadow-xl hover:-translate-y-1 hover:scale-105">
                     Profile Questions
                 </a>
-                <a href="/job-description-questions" class="bg-yellow-500 text-black px-6 py-3 rounded-lg inline-block w-full md:w-auto text-center shadow-lg transform transition hover:bg-yellow-600 hover:shadow-xl hover:-translate-y-1 hover:scale-105">
+                <a :href="jobDescriptionQuestionsUrl"  class="bg-yellow-500 text-black px-6 py-3 rounded-lg inline-block w-full md:w-auto text-center shadow-lg transform transition hover:bg-yellow-600 hover:shadow-xl hover:-translate-y-1 hover:scale-105">
                     Job Description Questions
                 </a>
             </div>
@@ -95,15 +98,14 @@ defineProps({
     <section class="py-20 bg-blue-button text-white">
         <h2 class="text-3xl font-bold text-center mb-10">What Our Users Say</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Testimonial 1 -->
             <div class="text-center p-6 bg-white text-black border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition">
-                <img src="path_to_user1_photo.png" alt="User 1" class="mb-4 rounded-full w-24 h-24 mx-auto">
+                <img src="#" alt="User 1" class="mb-4 rounded-full w-24 h-24 mx-auto">
                 <h3 class="text-xl font-semibold mb-2">John Doe</h3>
                 <p class="italic">"This platform revolutionized my interview preparation!"</p>
             </div>
             <!-- Testimonial 2 -->
             <div class="text-center p-6 bg-white text-black border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition">
-                <img src="path_to_user2_photo.png" alt="User 2" class="mb-4 rounded-full w-24 h-24 mx-auto">
+                <img src="#" alt="User 2" class="mb-4 rounded-full w-24 h-24 mx-auto">
                 <h3 class="text-xl font-semibold mb-2">Jane Smith</h3>
                 <p class="italic">"The AI-driven feedback is incredibly accurate."</p>
             </div>
