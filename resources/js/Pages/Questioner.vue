@@ -26,7 +26,13 @@ const answers = ref(questions.value.map(() => ''));
 
 const handleSubmit = async () => {
     try {
-        const response = await this.$axios.post('/submit-answers', { answers: answers.value });
+        // Prepare the payload with questions and answers
+        const payload = {
+            questions: questions.value,
+            answers: answers.value
+        };
+        // Send a POST request to the server endpoint
+        const response = await this.$axios.post('/submit-answers', payload);
         // Handle the response, navigate to another page or show a message
     } catch (error) {
         // Handle the error, show an error message
