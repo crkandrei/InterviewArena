@@ -11,6 +11,11 @@ class Feedback extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'content',
+        'score'
+    ];
+
     public function answers() {
         return $this->hasMany(UserAnswer::class);
     }

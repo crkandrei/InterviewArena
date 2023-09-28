@@ -37,6 +37,7 @@
     },
     "homepage": "https://github.com/crkandrei/InterviewArena#readme",
     "dependencies": {
-        "@inertiajs/inertia-vue3": "^0.6.0"
+        "@inertiajs/inertia-vue3": "^0.6.0",
+        "toastr": "^2.1.4"
     }
 }
