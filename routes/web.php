@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\QuestionerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,7 +26,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 // Authenticated Routes
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -40,12 +41,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/questioner', function () {
         return Inertia::render('Questioner');
     });
+
     // If using web.php
     Route::post('/submit-answers', [FormController::class, 'submitAnswers']);
 
 
     // Form Submission Route
     Route::post('/form-submit', [FormController::class, 'submit']);
+
+    Route::get('/questioners-list', [QuestionerController::class, 'questionersList'])->name('profile.questioners.list');
+
+    Route::get('/questioner/{id}', [QuestionerController::class, 'showQuestioner']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

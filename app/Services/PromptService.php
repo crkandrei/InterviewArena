@@ -27,7 +27,7 @@ class PromptService
             $prompt .= "# Question {$number}: \n{$question['content']}\n# Answer {$number}: \n{$answers[$index]}\n\n";
         }
 
-        $prompt .= "Please do not add new lines in the response. Provide feedback for each answer in the following JSON format: \n{\n  \"feedbacks\": {\n    \"1\": \"feedback and correct answer for question 1.\", \n    \"2\": \"feedback and correct answer for question 2 .\"\n  },\n  \"scores\": {\n    \"1\": score for first answer, \n    \"2\": score for second answer\n  }\n, and so on for every question}";
+        $prompt .= "Please do not add new lines in the response. Very important : Provide feedback for each answer in the following JSON format (take this as example): \n{\n  \"feedbacks\": {\n    \"1\": \"feedback and correct answer for question 1.\", \n    \"2\": \"feedback and correct answer for question 2 .\"\n  },\n  \"scores\": {\n    \"1\": score for first answer, \n    \"2\": score for second answer\n  }\n, and so on for every question}";
 
         return $prompt;
     }

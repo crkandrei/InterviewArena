@@ -56,4 +56,7 @@ class User extends Authenticatable
         return $this->hasMany(UserTokenPurchase::class);
     }
 
+    public function questioners() {
+        return $this->hasMany(Questioner::class);
+    }
 }

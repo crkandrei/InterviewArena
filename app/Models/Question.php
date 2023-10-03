@@ -17,8 +17,8 @@ class Question extends Model
         'category',
     ];
 
-    public function answers() {
-        return $this->hasMany(UserAnswer::class);
+    public function answer() {
+        return $this->hasOne(UserAnswer::class);
     }
 
     /**

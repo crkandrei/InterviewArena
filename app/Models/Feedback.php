@@ -16,7 +16,7 @@ class Feedback extends Model
         'score'
     ];
 
-    public function answers() {
-        return $this->hasMany(UserAnswer::class);
+    public function answer() {
+        return $this->hasOne(UserAnswer::class);
     }
 }

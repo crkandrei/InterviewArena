@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubmitAnswersRequest;
-use App\Repositories\FeedbackRepository;
-use App\Repositories\QuestionRepository;
+use Illuminate\Http\Request;
 use App\Services\OpenAIService;
 use App\Services\PromptService;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\QuestionRepository;
+use App\Repositories\FeedbackRepository;
+use App\Http\Requests\SubmitAnswersRequest;
+use Illuminate\Support\Facades\Log;
 
 
 class FormController extends Controller
 {
+    private const MAX_ATTEMPTS = 5;
     private OpenAIService $openAIService;
     private QuestionRepository $questionRepository;
     private FeedbackRepository $feedbackRepository;
     private PromptService $promptService;
-
-    public const NUMBER_OF_QUESTIONS = 5;
 
     public function __construct(
         OpenAIService $openAIService,
@@ -67,17 +67,29 @@ class FormController extends Controller
         $answers = $request->input('answers');
 
         $prompt = $this->generateFeedbackPrompt($questions, $answers);
+        $attempt = 0;
 
-        try {
-            $feedbackContent = $this->openAIService->request($prompt, 0.6);
+        while ($attempt <= self::MAX_ATTEMPTS) {
+            try {
+                $feedbackContent = $this->openAIService->request($prompt, 0.6);
 
-            $feedbackArray = json_decode($feedbackContent, true);
+                $feedbackArray = json_decode($feedbackContent, true);
 
-            $this->saveAnswersAndFeedback($questions, $answers, $feedbackArray);
+                if ($feedbackArray !== null) {
+                    $this->saveAnswersAndFeedback($questions, $answers, $feedbackArray);
+                    return response()->json(['feedbacks' => $feedbackArray['feedbacks'], 'scores' => $feedbackArray['scores']]);
+                }
 
-            return response()->json(['feedbacks' => $feedbackArray['feedbacks'], 'scores' => $feedbackArray['scores']]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+                $attempt++;
+                if ($attempt >= self::MAX_ATTEMPTS) {
+                    return response()->json(['error' => 'We have a problem with the AI'], 500);
+                }
+                sleep(1);
+
+            } catch (\Exception $e) {
+                Log::error("Attempt $attempt failed: " . $e->getMessage()); // Logging the error
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
         }
     }
 
