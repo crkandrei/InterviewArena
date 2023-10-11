@@ -16,6 +16,10 @@ defineProps({
         type: String,
         required: true,
     },
+    isAuthenticated: {  // Assume this prop tells us if the user is authenticated
+        type: Boolean,
+        required: true,
+    }
 });
 
 const profileQuestionsUrl = '/form/profile';
@@ -29,7 +33,12 @@ const jobDescriptionQuestionsUrl = '/form/job-description';
             <h1 class="text-2xl font-bold">InterviewArenaAI</h1>
             <div class="space-x-4">
                 <a href="/pricing" class="hover:text-gray-300">Pricing</a>
-                <a href="/login" class="hover:text-gray-300">Login/Register</a>
+                <template v-if="isAuthenticated">
+                    <a href="/profile" class="hover:text-gray-300">My Account</a>  <!-- Link to account page when authenticated -->
+                </template>
+                <template v-else>
+                    <a href="/login" class="hover:text-gray-300">Login/Register</a> <!-- Link to login page when not authenticated -->
+                </template>
             </div>
         </div>
     </header>

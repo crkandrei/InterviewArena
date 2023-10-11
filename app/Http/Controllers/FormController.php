@@ -47,9 +47,9 @@ class FormController extends Controller
             $questioner = $this->questionRepository->createQuestioner(auth()->id(), $prompt);
 
             $createdQuestions = [];
-
+            $domainField = $data['domainField'] ?? 'from-job-description';
             foreach ($questions as $question) {
-                $createdQuestions[] = $this->questionRepository->createQuestion($questioner->id, $data['domainField'], $question);
+                $createdQuestions[] = $this->questionRepository->createQuestion($questioner->id, $domainField, $question);
             }
 
             DB::commit();

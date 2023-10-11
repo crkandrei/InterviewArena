@@ -1,21 +1,25 @@
 <?php
-// app/Services/PromptService.php
 
 namespace App\Services;
 
 class PromptService
 {
-
-    public const NUMBER_OF_QUESTIONS = 5;
+    public const TYPE_PROFILE = 'profile';
+    public const TYPE_JOB_DESCRIPTION = 'job-description';
+    public const NUMBER_OF_QUESTIONS = 4;
 
     public function generatePrompt(string $type, array $data): string
     {
-        if ($type == 'profile') {
+        $technologies = implode(', ', $data['technology']);
+
+        if ($type == self::TYPE_PROFILE) {
             return "I want you to Generate " . self::NUMBER_OF_QUESTIONS .
-                " interview questions for a {$data['domainField']} professional with {$data['experienceLevel']} years of experience, specializing in {$data['technology']}. " .
+                " interview questions for a {$data['domainField']} professional with {$data['experienceLevel']} years of experience, specializing in : {$technologies}. " .
                 "The questions must be technical and I want you to send me only the questions not other words.";
         }
-        return "Generate 15 interview questions for a candidate applying for the following job description: {$data['jobDescription']}";
+        return "I want you to Generate " . self::NUMBER_OF_QUESTIONS .
+            " interview questions for the following job description : [ {$data['description']} ]. You must act like the interviewer for that job description " .
+            "The questions must be technical and I want you to send me only the questions not other words.";
     }
 
     public function generateFeedbackPrompt(array $questions, array $answers): string

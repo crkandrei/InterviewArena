@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\QuestionerController;
+use App\Models\Occupation;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +27,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'isAuthenticated' => Auth::check()
     ]);
 })->name('home');
 
@@ -35,7 +38,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::get('/form/{type}', function ($type) {
-        return Inertia::render('Form', ['type' => $type]);
+//        $occupations = Occupation::all()->pluck('occupation')->toArray();
+        return Inertia::render('Form', ['type' => $type, 'occupations' => Occupation::all()]);
     });
 
     Route::get('/questioner', function () {
