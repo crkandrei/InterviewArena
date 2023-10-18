@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\QuestionerController;
+use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\SubscriptionController;
 use App\Models\Occupation;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +35,11 @@ Route::get('/', function () {
 
 // Authenticated Routes
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('/admin-dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->middleware('role:admin')->name('admin.dashboard');
+
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
@@ -62,6 +69,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
+
+Route::post('/create-subscription', [SubscriptionController::class, 'create']);
 
 // Include Auth Routes
 require __DIR__.'/auth.php';

@@ -12,10 +12,15 @@ export default {
 
     theme: {
         extend: {
+            display: ['responsive'],
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                raleway: ['Raleway', 'sans-serif']
             },
             colors: {
+                'blue-footer' : '#003D75',
+                'muddy-white' : '#FFFCFA',
+                'blue-welcome': '#3598F3',
                 'blue-button': '#1789FC', // custom blue color
                 'yellow-button': '#FDB833', // custom yellow color
                 'color-1' : '#FCCAA2'

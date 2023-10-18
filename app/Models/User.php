@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    protected $appends = ['is_admin'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,12 +47,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function answers() {
-        return $this->hasMany(UserAnswer::class);
+    public function role() {
+        return $this->belongsTo(Role::class);
     }
 
-    public function subscriptions() {
-        return $this->hasMany(UserSubscription::class);
+    public function answers() {
+        return $this->hasMany(UserAnswer::class);
     }
 
     public function tokenPurchases() {
@@ -59,4 +62,21 @@ class User extends Authenticatable
     public function questioners() {
         return $this->hasMany(Questioner::class);
     }
+
+    /**
+     * Determine if the user is an admin.
+     *
+     * @return bool
+     */
+
+    public function isAdmin()
+    {
+        return $this->role->name === 'admin';
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->isAdmin();
+    }
+
 }

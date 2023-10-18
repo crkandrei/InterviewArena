@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subscription extends Model
+class Role extends Model
 {
     use HasFactory;
-
-    public function userSubscriptions() {
-        return $this->hasMany(UserSubscription::class);
-    }
-
 }

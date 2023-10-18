@@ -64,6 +64,9 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
+                                        <DropdownLink :href="route('admin.dashboard')" v-if="$page.props.auth.user && $page.props.auth.user.is_admin">
+                                            Admin Dashboard
+                                        </DropdownLink>
                                         <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
                                         <DropdownLink :href="route('profile.questioners.list')"> My Questioners </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
