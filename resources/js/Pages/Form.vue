@@ -1,70 +1,75 @@
 <template>
-    <Head title="Dashboard" />
     <AuthenticatedLayout>
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form</h2>
-            </template>
+            <div class="py-12 px-6">
+                <div class="max-w-7xl mx-auto sm:px-6 rounded-2xl lg:px-8">
+                    <div class="max-w-lg mx-auto mt-10 bg-white rounded-2xl shadow-custom">
+                        <!-- Header Tabs -->
+                        <div class="flex mb-4 relative bg-blue-100 rounded-t-xl h-14 from-blue-200 to-white">
+                            <h2 @click="formVersion = 'A'" :class="formVersion === 'A' ? tabActiveClass : tabInactiveClass">Profile Description</h2>
+                            <h2 @click="formVersion = 'B'" :class="formVersion === 'B' ? tabActiveClass : tabInactiveClass">Job Description</h2>
+                            <div v-if="formVersion === 'A'" class="absolute left-1/4 transform -translate-x-1/2 bottom-0 w-1/4 h-0.5 bg-blue-400 rounded-lg"></div>
+                            <div v-if="formVersion === 'B'" class="absolute right-1/4 transform translate-x-1/2 bottom-0 w-1/4 h-0.5 bg-blue-400 rounded-lg"></div>
+                        </div>
 
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <!-- Profile Form -->
-                    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-                        <!-- Profile Form -->
-                        <div v-if="props.type === 'profile'">
-                            <form @submit.prevent="handleProfileFormSubmit" class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-semibold">Job :</label>
-                                    <vue3-select id="domainField" :options="formattedOccupations" v-model="selectedOccupation" placeholder=" " class="w-full"></vue3-select>
+                            <!-- Form A -->
+                            <div v-if="formVersion === 'A'">
+                                <form @submit.prevent="handleProfileFormSubmit" class="space-y-4 p-6 bg-white shadow-md rounded-2xl">
+                                    <p class="text-gray-600 flex">
+                                        <img :src="assets.infoImage" class="mt-3 w-4 sm:w-4 h-4 sm:h-4 mr-4">
+                                        Fill the form according to your work experience and we will generate questions accordingly with those.
+                                    </p>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-600">Job</label>
+                                    <vue3-select id="domainField" :options="formattedOccupations" v-model="selectedOccupation" class="w-full rounded-md select-height"></vue3-select>
                                 </div>
 
-                                <div class="mb-4">
-                                    <label for="technology" class="block text-sm font-semibold mb-2">Technology or Language:</label>
-                                    <div class="border border-gray-300 p-2 rounded-md">
-                                        <div class="flex flex-wrap mb-2">
-                                            <span
-                                                v-for="(tag, index) in profileForm.technology"
-                                                :key="index"
-                                                class="bg-blue-500 text-white py-1 px-2 rounded mr-2 mb-2"
-                                            >
-                                                {{ tag }}
-                                                <button type="button" @click="removeTag(index)" class="ml-2 text-red-500">x</button>
-                                            </span>
-                                        </div>
-                                        <input
-                                            id="technology"
-                                            v-model="currentTag"
-                                            @keydown.enter.prevent="addTag"
-                                            placeholder="e.g., PHP, Javascript"
-                                            class="w-full p-2 border rounded-md border-transparent"
-                                        />
-                                        <!-- Hidden input field to satisfy the "required" condition -->
-                                        <input type="hidden" name="technology" :value="profileForm.technology.join(',')" required />
-                                        <small class="block text-gray-500 mt-2">Type a technology and press Enter to add it. No commas needed.</small>
+                                <!-- Technology Section -->
+                                <div class="mt-2">
+                                    <label for="technology" class="block text-sm font-semibold text-gray-600 mt-7">Skills</label>
+                                    <input id="technology" v-model="currentTag" @keydown.enter.prevent="addTag" placeholder="Use ENTER to add a skill to the list." class="w-full p-2 rounded-md border-gray-400" />
+                                    <div class="flex flex-wrap mb-2">
+                                        <span v-for="(tag, index) in profileForm.technology" :key="index" class="bg-blue-welcome text-white py-1 px-3 rounded-md mr-2 mt-2 mb-2 flex items-center">
+                                            {{ tag }}
+                                            <button type="button" @click="removeTag(index)" class="ml-2 text-white text-xl">
+                                                <i class="icon">
+                                                  <img :src="assets.xSvgIconUrl" alt="Icon Description" class="w-4 h-4">
+                                                </i>
+                                            </button>
+                                        </span>
                                     </div>
+                                    <!-- Hidden input field to satisfy the "required" condition -->
+                                    <input type="hidden" name="technology" :value="profileForm.technology.join(',')" required />
                                 </div>
 
+                                <!-- Years of Experience Section -->
                                 <div>
-                                    <label for="experienceLevel" class="block text-sm font-semibold">Years of Experience:</label>
-                                    <input id="experienceLevel" v-model="profileForm.experienceLevel" placeholder="e.g., 3" required class="w-full p-2 border rounded-md" />
+                                    <label for="experienceLevel" class="block text-sm font-semibold text-gray-600 mt-7">Years of experience</label>
+                                    <input id="experienceLevel" v-model="profileForm.experienceLevel" placeholder="4" required class="w-full p-2 rounded-md  mb-3 border-gray-400" />
                                 </div>
 
-                                <button v-if="!loading" type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Submit</button>
+                                <!-- Submit Button -->
+                                <button v-if="!loading" type="submit" class="w-full bg-blue-welcome text-white font-black p-3 rounded-md hover:bg-blue-300 transition ease-in-out duration-150">Submit</button>
                                 <Loader v-else />
                             </form>
-                        </div>
 
-                        <!-- Job Description Form -->
-                        <div v-else-if="props.type === 'job-description'">
-                            <form @submit.prevent="handleJobDescriptionFormSubmit" class="space-y-4">
-                                <div>
-                                    <label for="jobDescription" class="block text-sm font-semibold">Job Description:</label>
-                                    <textarea id="jobDescription" v-model="jobDescriptionForm.description" placeholder="Paste the descrpition of the job you will get interviwed" required class="w-full p-2 border rounded-md"></textarea>
-                                </div>
+                            </div>
 
-                                <button v-if="!loading" type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Submit</button>
-                                <Loader v-else />
-                            </form>
-                        </div>
+                            <!-- Form B -->
+                            <div v-if="formVersion === 'B'">
+                                <form @submit.prevent="handleJobDescriptionFormSubmit"  class="space-y-4 p-6 bg-white shadow-md rounded-2xl">
+                                    <p class="text-gray-600 flex">
+                                        <img :src="assets.infoImage" class="mt-3 w-4 sm:w-4 h-4 sm:h-4 mr-4">
+                                        Paste the description of the job you will get interviewed for and we will generate questions accordingly with those.
+                                    </p>
+                                    <div>
+                                        <label for="jobDescription" class="block text-sm font-semibold">Job Description:</label>
+                                        <textarea id="jobDescription" v-model="jobDescriptionForm.description" placeholder="Seeking a full-stack developer with expertise in React and Node.js to build and maintain our company's web applications. Knowledge of AWS and Docker is a plus." rows="18" required class="w-full p-2 border rounded-md"></textarea>
+                                    </div>
+
+                                    <button v-if="!loading" type="submit" class="w-full bg-blue-welcome text-white font-black p-3 rounded-md hover:bg-blue-300 transition ease-in-out duration-150">Submit</button>
+                                    <Loader v-else />
+                                </form>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -78,17 +83,20 @@ import { Head } from '@inertiajs/vue3';
 import { defineProps, ref, computed } from 'vue';
 import 'vue3-select/dist/vue3-select.css';
 import vue3Select from 'vue3-select';
+const formVersion = ref('A');
 
-
+const tabActiveClass = computed(() => 'flex-1 text-center py-4 px-4 bg-white font-black rounded-t-xl shadow-t-md cursor-pointer');
+const tabInactiveClass = computed(() => 'flex-1 text-center py-4 px-4 bg-transparent rounded-t-xl cursor-pointer hover:bg-blue-200');
 
 const props = defineProps({
     occupations: {
         type: Array,
         default: () => []
     },
-    type: String
+    xSvgIconUrl : String
 });
 
+const assets = window.assets;
 
 const jobDescriptionForm = ref({
     description: ''
@@ -103,10 +111,8 @@ const selectedOccupation = computed({
     }
 });
 
-// New ref for capturing the current tag input
 const currentTag = ref('');
 
-// Updated profileForm to hold an array of tags for technology
 const profileForm = ref({
     domainField: '',
     technology: [],
@@ -162,3 +168,15 @@ const handleJobDescriptionFormSubmit = async () => {
 };
 
 </script>
+<style>
+
+h2 {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.vs__dropdown-toggle {
+    border-color: rgb(156 163 175 / 1);
+    height: 2.75em;
+    border-radius: 0.375rem;
+}
+
+</style>

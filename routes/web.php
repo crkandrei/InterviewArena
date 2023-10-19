@@ -44,9 +44,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/form/{type}', function ($type) {
-//        $occupations = Occupation::all()->pluck('occupation')->toArray();
-        return Inertia::render('Form', ['type' => $type, 'occupations' => Occupation::all()]);
+    Route::get('/form', function () {
+
+        return Inertia::render('Form', [
+            'occupations' => Occupation::all()
+        ]);
     });
 
     Route::get('/questioner', function () {

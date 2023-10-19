@@ -17,12 +17,15 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 raleway: ['Raleway', 'sans-serif']
             },
+            boxShadow: {
+                'custom': '0px 4px 4px 0px rgba(0, 0, 0, 0.30)'
+            },
             colors: {
                 'blue-footer' : '#003D75',
-                'muddy-white' : '#FFFCFA',
+                'muddy-white' : '#F8F8F8',
                 'blue-welcome': '#3598F3',
-                'blue-button': '#1789FC', // custom blue color
-                'yellow-button': '#FDB833', // custom yellow color
+                'blue-button': '#1789FC',
+                'yellow-button': '#FDB833',
                 'color-1' : '#FCCAA2'
             },
         },
