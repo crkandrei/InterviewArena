@@ -10,9 +10,10 @@ class PromptService
 
     public function generatePrompt(string $type, array $data): string
     {
-        $technologies = implode(', ', $data['technology']);
 
         if ($type == self::TYPE_PROFILE) {
+
+            $technologies = implode(', ', $data['technology']);
             return "I want you to Generate " . self::NUMBER_OF_QUESTIONS .
                 " interview questions for a {$data['domainField']} professional with {$data['experienceLevel']} years of experience, specializing in : {$technologies}. " .
                 "The questions must be technical and I want you to send me only the questions not other words.";

@@ -31,5 +31,8 @@
         infoImage:"{{asset('img/png/info.png')}}",
         xSvgIconUrl: "{{asset('img/svg/times-light.svg')}}",
         logo: "{{asset('img/png/icon.png')}}",
+        rightSvg : "{{asset('img/svg/right.svg')}}",
+        leftSvg : "{{asset('img/svg/left.svg')}}",
+        isAuthenticated : "{{auth()->check()}}"
     }
 </script>

@@ -6,171 +6,78 @@ import Navbar from '@/components/Navbar.vue';
 <template>
     <div>
         <div class="min-h-screen bg-muddy-white ">
-<!--            <nav class="bg-white border-b border-gray-100">-->
-<!--                &lt;!&ndash; Primary Navigation Menu &ndash;&gt;-->
-<!--                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">-->
-<!--                    <div class="flex justify-between h-16">-->
-<!--                        <div class="flex">-->
-<!--                            &lt;!&ndash; Logo &ndash;&gt;-->
-<!--                            <div class="shrink-0 flex items-center">-->
-<!--                                <Link :href="route('home')">-->
-<!--                                    <ApplicationLogo-->
-<!--                                        class="block h-9 w-auto fill-current text-gray-800"-->
-<!--                                    />-->
-<!--                                </Link>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Navigation Links &ndash;&gt;-->
-<!--                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">-->
-<!--                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
-<!--                                    Dashboard-->
-<!--                                </NavLink>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="hidden sm:flex sm:items-center sm:ml-6">-->
-<!--                            &lt;!&ndash; Settings Dropdown &ndash;&gt;-->
-<!--                            <div class="ml-3 relative">-->
-<!--                                <Dropdown align="right" width="48">-->
-<!--                                    <template #trigger>-->
-<!--                                        <span class="inline-flex rounded-md">-->
-<!--                                            <button-->
-<!--                                                type="button"-->
-<!--                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"-->
-<!--                                            >-->
-<!--                                                {{ $page.props.auth.user.name }}-->
-
-<!--                                                <svg-->
-<!--                                                    class="ml-2 -mr-0.5 h-4 w-4"-->
-<!--                                                    xmlns="http://www.w3.org/2000/svg"-->
-<!--                                                    viewBox="0 0 20 20"-->
-<!--                                                    fill="currentColor"-->
-<!--                                                >-->
-<!--                                                    <path-->
-<!--                                                        fill-rule="evenodd"-->
-<!--                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"-->
-<!--                                                        clip-rule="evenodd"-->
-<!--                                                    />-->
-<!--                                                </svg>-->
-<!--                                            </button>-->
-<!--                                        </span>-->
-<!--                                    </template>-->
-
-<!--                                    <template #content>-->
-<!--                                        <DropdownLink :href="route('admin.dashboard')" v-if="$page.props.auth.user && $page.props.auth.user.is_admin">-->
-<!--                                            Admin Dashboard-->
-<!--                                        </DropdownLink>-->
-<!--                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>-->
-<!--                                        <DropdownLink :href="route('profile.questioners.list')"> My Questioners </DropdownLink>-->
-<!--                                        <DropdownLink :href="route('logout')" method="post" as="button">-->
-<!--                                            Log Out-->
-<!--                                        </DropdownLink>-->
-<!--                                    </template>-->
-<!--                                </Dropdown>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        &lt;!&ndash; Hamburger &ndash;&gt;-->
-<!--                        <div class="-mr-2 flex items-center sm:hidden">-->
-<!--                            <button-->
-<!--                                @click="showingNavigationDropdown = !showingNavigationDropdown"-->
-<!--                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"-->
-<!--                            >-->
-<!--                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">-->
-<!--                                    <path-->
-<!--                                        :class="{-->
-<!--                                            hidden: showingNavigationDropdown,-->
-<!--                                            'inline-flex': !showingNavigationDropdown,-->
-<!--                                        }"-->
-<!--                                        stroke-linecap="round"-->
-<!--                                        stroke-linejoin="round"-->
-<!--                                        stroke-width="2"-->
-<!--                                        d="M4 6h16M4 12h16M4 18h16"-->
-<!--                                    />-->
-<!--                                    <path-->
-<!--                                        :class="{-->
-<!--                                            hidden: !showingNavigationDropdown,-->
-<!--                                            'inline-flex': showingNavigationDropdown,-->
-<!--                                        }"-->
-<!--                                        stroke-linecap="round"-->
-<!--                                        stroke-linejoin="round"-->
-<!--                                        stroke-width="2"-->
-<!--                                        d="M6 18L18 6M6 6l12 12"-->
-<!--                                    />-->
-<!--                                </svg>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; Responsive Navigation Menu &ndash;&gt;-->
-<!--                <div-->
-<!--                    :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"-->
-<!--                    class="sm:hidden"-->
-<!--                >-->
-<!--                    <div class="pt-2 pb-3 space-y-1">-->
-<!--                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
-<!--                            Dashboard-->
-<!--                        </ResponsiveNavLink>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash; Responsive Settings Options &ndash;&gt;-->
-<!--                    <div class="pt-4 pb-1 border-t border-gray-200">-->
-<!--                        <div class="px-4">-->
-<!--                            <div class="font-medium text-base text-gray-800">-->
-<!--                                {{ $page.props.auth.user.name }}-->
-<!--                            </div>-->
-<!--                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>-->
-<!--                        </div>-->
-
-<!--                        <div class="mt-3 space-y-1">-->
-<!--                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>-->
-<!--                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">-->
-<!--                                Log Out-->
-<!--                            </ResponsiveNavLink>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </nav>-->
-
             <Navbar></Navbar>
 
             <!-- Page Content -->
             <main>
-                <div class="left-shade"></div>
+                <div>
+                    <div class="left-shade">
+                        <svg height="100%" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 800">
+                            <g id="Layer_1-2" data-name="Layer 1">
+                                <path class="cls-1" d="m.15,0s61.52,129.15,112.19,135.81,149.33,24,57.33,140C51,314.48,0,341.15,0,341.15L.15,0Z"/>
+                                <path class="cls-2" d="m0,329.81s54.84-117.33,136.92-90.67,15.41,252,15.41,252L.15,485.81l-.15-156Z"/>
+                                <path class="cls-3" d="m.15,431.81s78.85-42.67,205.52,117.33c113.2,142.99,25.47,175.01,24.7,175.23-2.76.77-5.26,1.44-7.37,2.1-25.33,8-48-28-68-28s-56.37-6.3-154.85,85.52v-352.19Z"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="right-shade">
+                        <svg height="100%" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 800">
+
+                            <g id="Layer_2-2" data-name="Layer 2">
+                                <path class="cls-11" d="m351.65,102.49s-51.07-43.52-62.94-87.05c-11.87-43.52-83.09,16.82-95.95,35.61-12.86,18.79-133.54,182.01,0,283.89l158.88,31.65V102.49Z"/>
+                                <path class="cls-21" d="m351.65,174.04s-124.26,2.97-152.45,86.06c-23.37,99.41,16.32,103.86-34.13,173.6-50.45,69.74-44.18,77.98-44.18,87.87s230.76,37.59,230.76,37.59V174.04Z"/>
+                                <path class="cls-31" d="m351.65,556.52s-100.19-20.44-131.19-46.16S0,531.62,0,574.98s54.28,65.94,100.44,69.24,55.39,62.65,53.41,98.26c-1.98,35.61,45.42,63.97,197.79,41.54v-227.51Z"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
                 <slot />
-                <div class="right-shade"></div>
             </main>
         </div>
     </div>
 </template>
 <style>
-    @media (max-width: 768px) {
+    @media (max-width: 1100px) {
         .left-shade,
         .right-shade {
             display: none;
         }
     }
-    .left-shade {
+    .left-shade{
+        height: 90%;
         position: absolute;
-        top: 0;
         left: 0;
-        width: 25%;
-        height: 100vh;
-        background-image: url('/img/svg/left.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
+    }
+    .right-shade{
+        height: 90%;
+        position: absolute;
+        right: 0;
+    }
+    .cls-1 {
+        fill: #3598f3;
     }
 
-    .right-shade {
-        position: absolute;
-        top: 0;
-        right: -4%;
-        width: 25%;
-        height: 100vh;
-        background-image: url('/img/svg/right.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
+    .cls-2 {
+        fill: #0e7bdf;
+    }
+
+    .cls-3 {
+        fill: #0964b8;
+    }
+    .cls-11 {
+        fill: #3598f3;
+    }
+
+    .cls-11, .cls-21, .cls-31 {
+        isolation: isolate;
+    }
+
+    .cls-21 {
+        fill: #0e7bdf;
+    }
+
+    .cls-31 {
+        fill: #0964b8;
     }
 
 </style>

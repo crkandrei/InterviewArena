@@ -64,7 +64,7 @@ onMounted(() => {
         </div>
         <!--Messages section-->
         <div class="container mx-auto mt-8 sm:mt-16 p-4 sm:p-12 font-raleway">
-            <div class="bg-blue-welcome p-4 sm:p-10 rounded-3xl">
+            <div class="bg-blue-welcome p-4 sm:p-10 rounded-3xl shadow-custom">
                 <h2 class="text-2xl sm:text-4xl font-black p-4 sm:p-8 mb-4 sm:mb-6 text-white text-center">Why choose InterviewArenaAI for your interview preparation?</h2>
 
                 <!-- Message 1 (Starting from left) -->
