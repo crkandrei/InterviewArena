@@ -10,8 +10,19 @@
                     </div>
                     <div class="p-4 bg-white rounded-b-2xl ">
                         <textarea v-model="answers[index]" rows="5" placeholder="Your answer" class="w-full p-2 rounded-b-2xl border border-gray-300 rounded" />
-                        <p v-if="feedbacks[index+1]" class="text-sm bg-white font-black text-red-500">Feedback: {{ feedbacks[index+1] }}</p>
-                        <p v-if="scores[index+1]" class="text-sm bg-white font-black text-green-500">Score: {{ scores[index+1] }}</p>
+                        <div v-if="feedbacks[index+1]" class="bg-blue-washed bg-blue-washed border rounded-2xl p-3">
+                            <div class="flex">
+                                <p v-if="feedbacks[index+1]" class="text-sm font-black">Feedback:</p>
+                                <p
+                                    v-if="scores[index+1]"
+                                    class="text-sm w-11 text-center border rounded-md text-white"
+                                    :class="getBackgroundColor(scores[index+1])"
+                                >
+                                    {{ scores[index+1] }}/10
+                                </p>
+                            </div>
+                            <p v-if="feedbacks[index+1]" class="text-sm">{{ feedbacks[index+1] }}</p>
+                        </div>
                     </div>
                 </div>
 
@@ -56,5 +67,15 @@ const handleSubmit = async () => {
         loading.value = false;
     }
 };
+function getBackgroundColor(score) {
+    if (score >= 0 && score < 4) {
+        return 'bg-red-500';
+    } else if (score >= 4 && score < 8) {
+        return 'bg-yellow-500';
+    } else if (score >= 8 && score <= 10) {
+        return 'bg-green-500';
+    }
+    return '';  // default background color (or you can specify another color)
+}
 </script>
 
